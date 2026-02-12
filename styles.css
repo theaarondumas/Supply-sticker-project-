@@ -69,7 +69,7 @@ body{
 
 /* ===== Scene ===== */
 .scene{
-  position:relative;            /* IMPORTANT: anchors PAR line/tag */
+  position:relative;
   border-radius:18px;
   overflow:hidden;
   background: radial-gradient(1200px 420px at 30% 10%, #ffffff 0%, #e9ebee 45%, #dfe2e7 100%);
@@ -78,10 +78,9 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:28px 18px;
+  padding:28px 18px 56px;
 }
 
-/* Optional background photo */
 .binPhoto{
   position:absolute;
   inset:0;
@@ -95,32 +94,60 @@ body{
 }
 .binPhoto.off{ display:none; }
 
-/* ===== Sticker Shadow + Sticker ===== */
+/* ===== Compare Layout ===== */
+.compare{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:22px;
+  width:min(1080px, 100%);
+  align-items:start;
+}
+.panel{ position:relative; display:flex; flex-direction:column; align-items:center; }
+.panel__tag{
+  margin-bottom:10px;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#222;
+  background:rgba(255,255,255,.75);
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.12);
+}
+
+/* Make the stickers smaller so two can fit side-by-side */
+.label--small, .stickerOld{
+  width:520px;
+  max-width:calc(100vw - 56px);
+  height:200px;
+}
+
 .labelShadow{
   position:absolute;
-  width:820px;
-  max-width:calc(100% - 40px);
-  height:240px;
-  border-radius:26px;
+  width:520px;
+  max-width:calc(100vw - 56px);
+  height:200px;
+  border-radius:22px;
   background:rgba(0,0,0,.35);
   filter: blur(14px);
   transform: translate(10px,16px);
   pointer-events:none;
+  z-index:0;
 }
+.labelShadow--small{ top:34px; }
 
+/* ===== NEW Sticker ===== */
 .label{
   position:relative;
-  width:820px;
-  max-width:calc(100% - 40px);
-  height:240px;
-  background:var(--card);
-  border-radius:26px;
+  background:linear-gradient(180deg,#ffffff 0%, #fbfbfb 100%);
+  border-radius:22px;
   border:3px solid var(--border);
   box-shadow:0 12px 30px var(--shadow);
   overflow:hidden;
+  z-index:1;
 }
-
-/* laminated shine */
 .label__shine{
   position:absolute;
   inset:0;
@@ -135,36 +162,32 @@ body{
   opacity:.9;
   pointer-events:none;
 }
-
-/* subtle edge bevel */
 .label__edge{
   position:absolute;
   inset:0;
-  border-radius:26px;
+  border-radius:22px;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.55),
     inset 0 -2px 0 rgba(0,0,0,.12);
   pointer-events:none;
 }
 
-/* ===== Layout inside sticker ===== */
 .label__content{
   position:relative;
   height:100%;
-  padding:18px 20px;
+  padding:14px 16px;
   display:grid;
-  grid-template-columns: 1fr 260px; /* info + scan zone */
+  grid-template-columns: 1fr 220px;
   grid-template-rows: auto auto auto auto auto;
-  column-gap:16px;
-  row-gap:8px;
+  column-gap:14px;
+  row-gap:6px;
   align-content:start;
 }
 
 .row{ grid-column:1/2; }
 
-/* Big title (like your screenshot) */
 .title{
-  font-size:42px;
+  font-size:36px;
   font-weight:950;
   letter-spacing:.01em;
   text-transform:uppercase;
@@ -172,46 +195,29 @@ body{
   color:var(--ink);
 }
 
-/* Item + PAR line */
 .meta{
   display:flex;
-  gap:26px;
+  gap:20px;
   flex-wrap:wrap;
-  font-size:18px;
+  font-size:16px;
   align-items:baseline;
 }
-.k{
-  color:var(--muted);
-  font-weight:850;
-  letter-spacing:.02em;
-}
-.v{
-  color:var(--ink);
-  font-weight:950;
-}
-.v--par{ font-size:20px; }
+.k{ color:var(--muted); font-weight:850; letter-spacing:.02em; }
+.v{ color:var(--ink); font-weight:950; }
+.v--par{ font-size:18px; }
+.v--link{ color:#0b57d0; text-decoration:underline; }
 
-/* Make Item # look like link (matches your screenshot blue underline) */
-.meta a,
-.meta .v a{
-  color:#0b57d0;
-  text-decoration:underline;
-  font-weight:950;
-}
-
-/* Location / refs / case lines */
-.loc{ font-size:18px; }
-.refs{ font-size:16px; color:#2d3138; }
-.case{ font-size:16px; color:#2d3138; }
+.loc{ font-size:16px; }
+.refs{ font-size:14px; color:#2d3138; }
+.case{ font-size:14px; color:#2d3138; }
 .sep{ color:#8c929b; padding:0 6px; }
 
-/* ===== Scan zone ===== */
 .scan{
   grid-column:2/3;
   grid-row:1/6;
   border:3px solid var(--border);
-  border-radius:18px;
-  padding:14px 12px;
+  border-radius:16px;
+  padding:12px 10px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -220,15 +226,15 @@ body{
 
 .scan__title{
   font-weight:950;
-  font-size:20px;
+  font-size:18px;
   letter-spacing:.06em;
   text-transform:uppercase;
   line-height:1.05;
 }
 
-/* barcode (realistic bars) */
+/* barcode */
 .scan__barcode{
-  height:110px;
+  height:92px;
   display:flex;
   gap:3px;
   align-items:flex-end;
@@ -237,25 +243,122 @@ body{
   border-radius:12px;
   border:1px solid rgba(0,0,0,.14);
 }
-
 .scan__barcode span{
   display:block;
   width:5px;
   background:#0f1115;
   border-radius:2px;
 }
-.scan__barcode span:nth-child(odd){ height:96px; }
-.scan__barcode span:nth-child(3n){ height:62px; }
-.scan__barcode span:nth-child(5n){ height:74px; }
-.scan__barcode span:nth-child(7n){ height:86px; }
-.scan__barcode span:nth-child(11n){ height:56px; }
+.scan__barcode span:nth-child(odd){ height:82px; }
+.scan__barcode span:nth-child(3n){ height:52px; }
+.scan__barcode span:nth-child(5n){ height:64px; }
+.scan__barcode span:nth-child(7n){ height:74px; }
+.scan__barcode span:nth-child(11n){ height:46px; }
 
-/* ===== PAR Line (in the scene) ===== */
+/* ===== OLD Sticker ===== */
+.stickerOld{
+  position:relative;
+  background:#fff;
+  border-radius:22px;
+  border:3px solid rgba(0,0,0,.65);
+  box-shadow:0 12px 30px var(--shadow);
+  overflow:hidden;
+  z-index:1;
+}
+
+.stickerOld__shine{
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(120deg,
+      rgba(255,255,255,.65) 0%,
+      rgba(255,255,255,.20) 25%,
+      rgba(255,255,255,0) 48%,
+      rgba(255,255,255,.08) 72%,
+      rgba(255,255,255,0) 100%);
+  opacity:.85;
+  pointer-events:none;
+}
+.stickerOld__edge{
+  position:absolute;
+  inset:0;
+  border-radius:22px;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    inset 0 -2px 0 rgba(0,0,0,.12);
+  pointer-events:none;
+}
+
+.stickerOld__content{
+  position:relative;
+  padding:14px 16px;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* top row with barcode + par */
+.oldTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+.oldBarcode{
+  flex:1;
+  height:42px;
+  border-radius:6px;
+  border:1px solid rgba(0,0,0,.15);
+  background:rgba(255,255,255,.6);
+  display:flex;
+  gap:2px;
+  align-items:flex-end;
+  padding:6px 6px 4px;
+}
+.oldBarcode span{
+  width:4px;
+  background:#111;
+  border-radius:2px;
+  display:block;
+}
+.oldBarcode span:nth-child(odd){height:30px}
+.oldBarcode span:nth-child(3n){height:20px}
+.oldBarcode span:nth-child(5n){height:26px}
+.oldBarcode span:nth-child(7n){height:28px}
+
+.oldPar{ width:150px; text-align:right; }
+.oldPar__big{ font-size:30px; font-weight:900; letter-spacing:.02em; }
+.oldPar__small{ font-size:12px; color:#2d3138; margin-top:2px; }
+
+.oldItemNo{ font-size:20px; font-weight:800; }
+.oldDesc{
+  font-size:14px;
+  letter-spacing:.01em;
+  text-transform:uppercase;
+  color:#2a2f37;
+}
+.oldMeta{ font-size:13px; color:#2d3138; }
+
+.oldBottom{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.oldLoc{ font-size:14px; font-weight:800; color:#2a2f37; }
+.oldIcon{
+  width:16px;height:16px;
+  background:rgba(0,0,0,.15);
+  border-radius:3px;
+}
+
+/* ===== PAR line in scene ===== */
 .parLine{
   position:absolute;
   left:16%;
   right:16%;
-  bottom:12%;
+  bottom:16%;
   height:14px;
   background:var(--par);
   border-radius:10px;
@@ -277,7 +380,7 @@ body{
   color:#b01212;
 }
 
-/* ===== Notes Card ===== */
+/* Notes */
 .notes{
   margin-top:16px;
   background:#fff;
@@ -289,17 +392,19 @@ body{
 .notes ul{ margin:0; padding-left:18px; color:#2a2f37; }
 .notes li{ margin:6px 0; }
 
-/* ===== Print (prints sticker only) ===== */
+/* Mobile: stack instead of side-by-side */
+@media (max-width: 980px){
+  .compare{ grid-template-columns: 1fr; gap:18px; }
+  .labelShadow{ display:none; } /* reduce clutter on mobile */
+}
+
+/* Print: print only NEW sticker */
 @media print{
   body{ background:#fff; }
-  .topbar, .notes, .binPhoto, .parLine, .labelShadow{ display:none !important; }
-  .scene{
-    border:none;
-    min-height:auto;
-    padding:0;
-    background:#fff;
-  }
-  .label{
+  .topbar, .notes, .binPhoto, .parLine, .panel__tag, .stickerOld, .labelShadow{ display:none !important; }
+  .scene{ border:none; min-height:auto; padding:0; background:#fff; }
+  .compare{ display:block; }
+  .label--small{
     width:6.6in;
     height:2.05in;
     border-radius:0.22in;
