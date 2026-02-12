@@ -412,3 +412,6 @@ body{
     box-shadow:none;
   }
 }
+
+.compare.showNewOnly .panel:first-child{ display:none; }
+.compare.showNewOnly{ grid-template-columns: 1fr; }
