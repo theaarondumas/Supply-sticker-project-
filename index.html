@@ -19,57 +19,106 @@
         <button class="btn" onclick="window.print()">Print</button>
         <button class="btn" id="togglePhotoBtn">Toggle Bin Photo</button>
         <button class="btn" id="toggleParBtn">Toggle PAR Line</button>
+        <button class="btn" id="toggleCompareBtn">Toggle Compare</button>
       </div>
     </div>
   </header>
 
   <main class="wrap">
-    <!-- “Real life” mock: label on a bin photo background -->
     <section class="scene" id="scene">
       <div class="binPhoto" id="binPhoto" aria-hidden="true"></div>
 
-      <div class="labelShadow"></div>
+      <!-- Compare container -->
+      <div class="compare" id="compare">
+        <!-- OLD sticker -->
+        <div class="panel">
+          <div class="panel__tag">CURRENT (OLD)</div>
 
-      <article class="label" role="group" aria-label="Supply bin label">
-        <div class="label__shine"></div>
+          <div class="labelShadow labelShadow--small"></div>
+          <article class="stickerOld" aria-label="Old supply bin label">
+            <div class="stickerOld__shine"></div>
 
-        <div class="label__content">
-          <div class="row row--title">
-            <div class="title">IV CAPS – CUROS</div>
-          </div>
+            <div class="stickerOld__content">
+              <div class="oldTop">
+                <div class="oldBarcode" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span>
+                </div>
 
-          <div class="row row--meta">
-            <div class="meta">
-              <div><span class="k">Item #:</span> <span class="v">1099622</span></div>
-              <div><span class="k">PAR:</span> <span class="v v--par">6 BX</span></div>
+                <div class="oldPar">
+                  <div class="oldPar__big">6 BX</div>
+                  <div class="oldPar__small">CS 20 BX 50 PK - 5</div>
+                </div>
+              </div>
+
+              <div class="oldBody">
+                <div class="oldItemNo">1099622</div>
+                <div class="oldDesc">CAP IV CUROS JET STRIP CFJ5250</div>
+                <div class="oldMeta">CFJ5-250&nbsp;&nbsp;&nbsp;&nbsp;3M</div>
+                <div class="oldMeta">HCX-3STELE</div>
+
+                <div class="oldBottom">
+                  <div class="oldLoc">C-08-A-1</div>
+                  <div class="oldIcon" aria-hidden="true"></div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <div class="row row--loc">
-            <div class="loc"><span class="k">Location:</span> <span class="v">C-08-A-1</span></div>
-          </div>
-
-          <div class="row row--refs">
-            <div class="refs">CFJ5250 <span class="sep">|</span> 3M <span class="sep">|</span> HCX-3STELE</div>
-          </div>
-
-          <div class="row row--case">
-            <div class="case">CS 20 BX 50 PK - 5</div>
-          </div>
-
-          <div class="scan">
-            <div class="scan__title">SCAN TO<br/>RESTOCK</div>
-            <div class="scan__barcode" aria-hidden="true">
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-              <span></span><span></span><span></span><span></span><span></span>
-            </div>
-          </div>
+            <div class="stickerOld__edge"></div>
+          </article>
         </div>
 
-        <div class="label__edge"></div>
-      </article>
+        <!-- NEW sticker -->
+        <div class="panel">
+          <div class="panel__tag">UPDATED (NEW)</div>
 
+          <div class="labelShadow labelShadow--small"></div>
+          <article class="label label--small" role="group" aria-label="New supply bin label">
+            <div class="label__shine"></div>
+
+            <div class="label__content">
+              <div class="row row--title">
+                <div class="title">IV CAPS – CUROS</div>
+              </div>
+
+              <div class="row row--meta">
+                <div class="meta">
+                  <div><span class="k">Item #:</span> <span class="v v--link">1099622</span></div>
+                  <div><span class="k">PAR:</span> <span class="v v--par">6 BX</span></div>
+                </div>
+              </div>
+
+              <div class="row row--loc">
+                <div class="loc"><span class="k">Location:</span> <span class="v">C-08-A-1</span></div>
+              </div>
+
+              <div class="row row--refs">
+                <div class="refs">CFJ5250 <span class="sep">|</span> 3M <span class="sep">|</span> HCX-3STELE</div>
+              </div>
+
+              <div class="row row--case">
+                <div class="case">CS 20 BX 50 PK - 5</div>
+              </div>
+
+              <div class="scan">
+                <div class="scan__title">SCAN TO<br/>RESTOCK</div>
+                <div class="scan__barcode" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span><span></span><span></span>
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="label__edge"></div>
+          </article>
+        </div>
+      </div>
+
+      <!-- PAR line -->
       <div class="parLine" id="parLine">
         <div class="parLine__tag">MIN LEVEL (PAR LINE)</div>
       </div>
@@ -78,9 +127,9 @@
     <section class="notes">
       <h2>How to use this</h2>
       <ul>
-        <li>Open on mobile in GitHub Pages → it’ll look like a sticker sitting on a bin.</li>
-        <li>Hit <b>Print</b> to test sizing (prints just the label).</li>
+        <li>Toggle Compare to see old vs new stickers side-by-side.</li>
         <li>Toggle Bin Photo / PAR Line to simulate “real life” install.</li>
+        <li>Hit <b>Print</b> to print (new label only).</li>
       </ul>
     </section>
   </main>
